@@ -46,7 +46,7 @@ export default function Pedidos({ setOpenAddPedido }) {
 
     switch (activeFilter) {
       case "pendientes":
-        return returnDate > in7Days;
+        return returnDate > in7Days && !pedido.returned;
       case "proximos":
         return returnDate >= today && returnDate <= in7Days;
       case "devueltos":
