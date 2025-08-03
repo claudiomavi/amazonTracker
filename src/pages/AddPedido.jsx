@@ -5,7 +5,7 @@ import { useState } from "react";
 import AddPedidoHeader from "../components/AddPedidoHeader";
 import { Checkmark } from "react-ionicons";
 
-export default function AddPedido() {
+export default function AddPedido({ setOpenAddPedido }) {
   const [newPedido, setNewPedido] = useState({
     productname: "",
     amount: 0,
@@ -45,6 +45,7 @@ export default function AddPedido() {
           notes: "",
           installmentValue: 0,
         });
+        setOpenAddPedido(false);
       } catch (error) {
         console.log("Error añadiendo un pedido", error);
       }
@@ -52,8 +53,8 @@ export default function AddPedido() {
   };
 
   return (
-    <>
-      <AddPedidoHeader />
+    <div className="bg z-20 h-full w-full">
+      <AddPedidoHeader setOpenAddPedido={setOpenAddPedido} />
       <form
         action={handleAddPedido}
         className="mt-12 flex w-full flex-col items-center justify-center gap-4"
@@ -164,6 +165,6 @@ export default function AddPedido() {
           <Checkmark width="25px" />
         </button>
       </form>
-    </>
+    </div>
   );
 }
