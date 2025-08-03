@@ -49,6 +49,9 @@
   .bg-primary {
     background-color: var(--primary);
   }
+  .bg-primary {
+    background-color: var(--primary);
+  }
 
   .text {
     color: var(--text);
