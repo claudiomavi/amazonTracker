@@ -38,7 +38,7 @@ export const deletePedido = mutation({
   },
 });
 
-export const updateOrder = mutation({
+export const updatePedido = mutation({
   args: {
     id: v.id("pedidos"),
     updates: v.object({
