@@ -47,3 +47,25 @@ export const deletePedido = mutation({
     await ctx.db.delete(args.id);
   },
 });
+
+export const updateOrder = mutation({
+  args: {
+    id: v.id("pedidos"),
+    updates: v.object({
+      productname: v.optional(v.string()),
+      amount: v.optional(v.number()),
+      deliveryDate: v.optional(v.string()),
+      returnDeadline: v.optional(v.string()),
+      paymentType: v.optional(v.string()),
+      notes: v.optional(v.string()),
+      installmentValue: v.optional(v.number()),
+      returned: v.optional(v.boolean()),
+      refundReceived: v.optional(v.boolean()),
+      returnDate: v.optional(v.string()),
+      refundCheckDate: v.optional(v.string()),
+    }),
+  },
+  handler: async (ctx, { id, updates }) => {
+    await ctx.db.patch(id, updates);
+  },
+});
