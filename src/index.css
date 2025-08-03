@@ -78,4 +78,8 @@
   .outline-border {
     outline-color: var(--border);
   }
+
+  .fill-muted {
+    fill: var(--muted) /* #fff = #ffffff */;
+  }
 }
