@@ -10,9 +10,9 @@ export default defineSchema({
     paymentType: v.string(),
     notes: v.string(),
     installmentValue: v.number(),
-    returned: v.boolean(),
-    refundReceived: v.boolean(),
-    returnDate: v.string(),
-    refundCheckDate: v.string(),
+    returned: v.optional(v.boolean()),
+    refundReceived: v.optional(v.boolean()),
+    returnDate: v.optional(v.string()),
+    refundCheckDate: v.optional(v.string()),
   }),
 });
