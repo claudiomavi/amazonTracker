@@ -1,13 +1,38 @@
-import { useQuery } from "convex/react";
-import { AddCircle, CardOutline, ReturnDownBack } from "react-ionicons";
+import { useMutation, useQuery } from "convex/react";
+import {
+  AddCircle,
+  CardOutline,
+  ReturnDownBack,
+  WalletOutline,
+} from "react-ionicons";
 import { api } from "../../convex/_generated/api";
 import PedidosHeader from "../components/PedidosHeader";
 import { useState } from "react";
+import RefundModal from "../components/RefundModal";
+import ReturnModal from "../components/ReturnModal";
 
 export default function Pedidos({ setOpenAddPedido }) {
   const [activeFilter, setActiveFilter] = useState("todos");
+  const [showReturnModal, setShowReturnModal] = useState(false);
+  const [showRefundModal, setShowRefundModal] = useState(false);
+  const [selectedPedido, setSelectedPedido] = useState(null);
+  const [wasReturned, setWasReturned] = useState(false);
+  const [wasRefunded, setWasRefunded] = useState(false);
+  const [returnDate, setReturnDate] = useState("");
+  const [refundDate, setRefundDate] = useState("");
 
   const pedidos = useQuery(api.pedidos.getPedidos);
+  const updatePedido = useMutation(api.pedidos.updatePedido);
+
+  function getReturnButtonColor(pedido) {
+    if (pedido.returned) return "bg-success";
+
+    const deadline = new Date(pedido.returnDeadline);
+
+    if (deadline <= in7Days) return "bg-danger";
+
+    return "bg-primary";
+  }
 
   const today = new Date();
   const in7Days = new Date();
@@ -52,14 +77,28 @@ export default function Pedidos({ setOpenAddPedido }) {
                 Entrega: {pedido.deliveryDate}
               </p>
               <div className="flex items-center justify-between">
-                <button className="bg-primary text flex items-center justify-center gap-2 rounded-2xl px-2 py-0.5 text-xs">
+                <button
+                  onClick={() => {
+                    setSelectedPedido(pedido);
+                    setWasReturned(pedido.returned);
+                    setReturnDate(pedido.returnDate);
+                    setShowReturnModal(true);
+                  }}
+                  className={`${getReturnButtonColor(pedido)} text flex items-center justify-center gap-2 rounded-2xl px-2 py-0.5 text-xs`}
+                >
                   <ReturnDownBack width="12px" />
                   {pedido.returnDeadline}
                 </button>
                 <button
+                  onClick={() => {
+                    setSelectedPedido(pedido);
+                    setWasRefunded(pedido.refundReceived);
+                    setRefundDate(pedido.returnDate);
+                    setShowRefundModal(true);
+                  }}
                   className={`${pedido.refundReceived ? "bg-success" : "bg-danger"} text flex items-center justify-center gap-2 rounded-2xl px-2 py-0.5 text-xs`}
                 >
-                  <ReturnDownBack width="12px" />
+                  <WalletOutline width="12px" />
                   {pedido.refundReceived ? "Si" : "No"}
                 </button>
                 <button className="bg-secondary text flex items-center justify-center gap-2 rounded-2xl px-2 py-0.5 text-xs">
@@ -72,6 +111,7 @@ export default function Pedidos({ setOpenAddPedido }) {
           ))}
       </div>
 
+      {/* BOTÓN PARA AÑADIR NUEVO PEDIDO */}
       <div className="fixed bottom-32 right-8 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white">
         <AddCircle
           onClick={() => setOpenAddPedido(true)}
@@ -79,6 +119,32 @@ export default function Pedidos({ setOpenAddPedido }) {
           width="60px"
         />
       </div>
+
+      {/* MODALES PARA MARCAR DEVOLUCIÓN O REEMBOLSO */}
+      {showReturnModal && selectedPedido && (
+        <ReturnModal
+          wasReturned={wasReturned}
+          setWasReturned={setWasReturned}
+          returnDate={returnDate}
+          setReturnDate={setReturnDate}
+          setShowReturnModal={setShowReturnModal}
+          updatePedido={updatePedido}
+          selectedPedido={selectedPedido}
+          setSelectedPedido={setSelectedPedido}
+        />
+      )}
+      {showRefundModal && selectedPedido && (
+        <RefundModal
+          wasRefunded={wasRefunded}
+          setWasRefunded={setWasRefunded}
+          refundDate={refundDate}
+          setRefundDate={setRefundDate}
+          setShowRefundModal={setShowRefundModal}
+          updatePedido={updatePedido}
+          selectedPedido={selectedPedido}
+          setSelectedPedido={setSelectedPedido}
+        />
+      )}
     </div>
   );
 }
