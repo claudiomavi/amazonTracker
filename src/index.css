@@ -24,7 +24,7 @@
   --bg: oklch(0.15 0 280);
   --bg-light: oklch(0.2 0 280);
   --text: oklch(0.96 0 280);
-  --text-muted: oklch(0.76 0 280);
+  --muted: oklch(0.76 0 280);
   --highlight: oklch(0.5 0 280);
   --border: oklch(0.4 0 280);
   --border-muted: oklch(0.3 0 280);
@@ -49,8 +49,14 @@
   .bg-primary {
     background-color: var(--primary);
   }
-  .bg-primary {
-    background-color: var(--primary);
+  .bg-secondary {
+    background-color: var(--secondary);
+  }
+  .bg-success {
+    background-color: var(--success);
+  }
+  .bg-danger {
+    background-color: var(--danger);
   }
 
   .text {
@@ -63,7 +69,7 @@
     color: var(--secondary);
   }
   .text-muted {
-    color: var(--text-muted);
+    color: var(--muted);
   }
 
   .outline-border {
