@@ -13,10 +13,10 @@ export default function RefundModal({
   return (
     <div className="bg/10 fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
       <div className="text bg outline-border flex w-80 flex-col items-center justify-center gap-8 rounded-2xl p-4 outline-1">
-        <h2 className="text-lg font-bold">Marcar como devuelto</h2>
+        <h2 className="text-lg font-bold">Marcar como reembolsado</h2>
 
         <div className="flex items-center justify-around gap-4">
-          <label>¿Se ha devuelto?</label>
+          <label>¿Se ha reembolsado?</label>
           <input
             type="checkbox"
             checked={wasRefunded}
@@ -49,7 +49,7 @@ export default function RefundModal({
                   id: selectedPedido._id,
                   updates: {
                     refundReceived: wasRefunded,
-                    refundDate,
+                    refundCheckDate: refundDate,
                   },
                 });
                 setShowRefundModal(false);
