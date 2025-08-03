@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "convex/react";
 import {
   AddCircle,
   CardOutline,
+  CreateOutline,
   ReturnDownBack,
   WalletOutline,
 } from "react-ionicons";
@@ -10,9 +11,11 @@ import PedidosHeader from "../components/PedidosHeader";
 import { useState } from "react";
 import RefundModal from "../components/RefundModal";
 import ReturnModal from "../components/ReturnModal";
+import PedidoForm from "../components/PedidoFrom";
 
 export default function Pedidos({ setOpenAddPedido }) {
   const [activeFilter, setActiveFilter] = useState("todos");
+  const [showModify, setShowModify] = useState(false);
   const [showReturnModal, setShowReturnModal] = useState(false);
   const [showRefundModal, setShowRefundModal] = useState(false);
   const [selectedPedido, setSelectedPedido] = useState(null);
@@ -55,6 +58,33 @@ export default function Pedidos({ setOpenAddPedido }) {
     }
   });
 
+  const handleModifyPedido = async (modifiedPedido) => {
+    const { amount, paymentType } = modifiedPedido;
+    let cuotas = 1;
+
+    if (paymentType === "amazon4") cuotas = 4;
+    else if (paymentType === "klarna3") cuotas = 3;
+
+    const valor = amount && cuotas ? amount / cuotas : 0;
+
+    const valorFixed = Number(valor.toFixed(2));
+
+    await updatePedido({
+      id: modifiedPedido._id,
+      updates: {
+        productname: modifiedPedido.productname,
+        amount: modifiedPedido.amount,
+        deliveryDate: modifiedPedido.deliveryDate,
+        returnDeadline: modifiedPedido.returnDeadline,
+        paymentType: modifiedPedido.paymentType,
+        installmentValue: valorFixed,
+        notes: modifiedPedido.notes,
+      },
+    });
+    setShowModify(false);
+    setSelectedPedido(null); // opcional
+  };
+
   return (
     <div>
       <PedidosHeader
@@ -70,7 +100,17 @@ export default function Pedidos({ setOpenAddPedido }) {
               className="bg-light outline-border mx-7 flex flex-col gap-2 rounded-2xl p-4 outline-1"
             >
               <div className="flex w-full justify-between font-bold">
-                <p className="text">{pedido.productname}</p>
+                <div className="flex items-center justify-center gap-2">
+                  <p className="text">{pedido.productname}</p>
+                  <CreateOutline
+                    width="18px"
+                    className="text-muted fill-muted hover:fill-white hover:text-white"
+                    onClick={() => {
+                      setShowModify(true);
+                      setSelectedPedido(pedido);
+                    }}
+                  />
+                </div>
                 <p className="text-secondary">{pedido.installmentValue}€</p>
               </div>
               <p className="text-muted text-xs">
@@ -144,6 +184,18 @@ export default function Pedidos({ setOpenAddPedido }) {
           selectedPedido={selectedPedido}
           setSelectedPedido={setSelectedPedido}
         />
+      )}
+      {/* MODAL PARA MODIFICAR PEDIDO */}
+      {showModify && selectedPedido && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+          <PedidoForm
+            pedido={selectedPedido}
+            setPedido={setSelectedPedido}
+            action={() => handleModifyPedido(selectedPedido)}
+            buttonText="Modificar"
+            eliminate
+          />
+        </div>
       )}
     </div>
   );
