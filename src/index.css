@@ -52,6 +52,9 @@
   .bg-secondary {
     background-color: var(--secondary);
   }
+  .bg-muted {
+    background-color: var(--muted);
+  }
   .bg-success {
     background-color: var(--success);
   }
