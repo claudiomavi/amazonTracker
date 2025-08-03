@@ -1,0 +1,84 @@
+import { useQuery } from "convex/react";
+import { AddCircle, CardOutline, ReturnDownBack } from "react-ionicons";
+import { api } from "../../convex/_generated/api";
+import PedidosHeader from "../components/PedidosHeader";
+import { useState } from "react";
+
+export default function Pedidos({ setOpenAddPedido }) {
+  const [activeFilter, setActiveFilter] = useState("todos");
+
+  const pedidos = useQuery(api.pedidos.getPedidos);
+
+  const today = new Date();
+  const in7Days = new Date();
+  in7Days.setDate(today.getDate() + 7);
+
+  const filteredPedidos = pedidos?.filter((pedido) => {
+    const returnDate = new Date(pedido.returnDeadline);
+
+    switch (activeFilter) {
+      case "pendientes":
+        return returnDate > in7Days;
+      case "proximos":
+        return returnDate >= today && returnDate <= in7Days;
+      case "devueltos":
+        return pedido.returned && !pedido.refundReceived;
+      case "reembolsados":
+        return pedido.refundReceived;
+      default:
+        return true;
+    }
+  });
+
+  return (
+    <div>
+      <PedidosHeader
+        activeFilter={activeFilter}
+        setActiveFilter={setActiveFilter}
+      />
+
+      <div className="mt-14 flex h-full w-full flex-col gap-7">
+        {pedidos &&
+          filteredPedidos.map((pedido) => (
+            <div
+              key={pedido._id}
+              className="bg-light outline-border mx-7 flex flex-col gap-2 rounded-2xl p-4 outline-1"
+            >
+              <div className="flex w-full justify-between font-bold">
+                <p className="text">{pedido.productname}</p>
+                <p className="text-secondary">{pedido.installmentValue}€</p>
+              </div>
+              <p className="text-muted text-xs">
+                Entrega: {pedido.deliveryDate}
+              </p>
+              <div className="flex items-center justify-between">
+                <button className="bg-primary text flex items-center justify-center gap-2 rounded-2xl px-2 py-0.5 text-xs">
+                  <ReturnDownBack width="12px" />
+                  {pedido.returnDeadline}
+                </button>
+                <button
+                  className={`${pedido.refundReceived ? "bg-success" : "bg-danger"} text flex items-center justify-center gap-2 rounded-2xl px-2 py-0.5 text-xs`}
+                >
+                  <ReturnDownBack width="12px" />
+                  {pedido.refundReceived ? "Si" : "No"}
+                </button>
+                <button className="bg-secondary text flex items-center justify-center gap-2 rounded-2xl px-2 py-0.5 text-xs">
+                  <CardOutline width="12px" />
+                  {pedido.paymentType.slice(0, 1).toUpperCase() +
+                    pedido.paymentType.slice(1)}
+                </button>
+              </div>
+            </div>
+          ))}
+      </div>
+
+      <div className="fixed bottom-32 right-8 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white">
+        <AddCircle
+          onClick={() => setOpenAddPedido(true)}
+          color="oklch(0.76 0.1 280)"
+          width="60px"
+        />
+      </div>
+    </div>
+  );
+}
