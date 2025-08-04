@@ -19,7 +19,8 @@ export default function PedidoForm({
     if (paymentType === "amazon4") cuotas = 4;
     else if (paymentType === "klarna3") cuotas = 3;
 
-    const valor = amount && cuotas ? amount / cuotas : 0;
+    const numericAmount = Number(amount);
+    const valor = numericAmount && cuotas ? numericAmount / cuotas : 0;
 
     setPedido((prev) => ({
       ...prev,
@@ -59,7 +60,7 @@ export default function PedidoForm({
         </div>
         <div className="bg-dark outline-border flex w-80 flex-col items-center justify-center gap-2 rounded-2xl p-4 outline-1">
           <input
-            type="number"
+            type="text"
             placeholder="amount"
             value={pedido.amount}
             onChange={(e) =>
