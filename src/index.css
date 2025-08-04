@@ -80,6 +80,10 @@
   }
 
   .fill-muted {
-    fill: var(--muted) /* #fff = #ffffff */;
+    fill: var(--muted);
+  }
+
+  .border-muted {
+    border-color: var(--muted);
   }
 }
