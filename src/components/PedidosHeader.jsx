@@ -7,12 +7,6 @@ export default function PedidosHeader({ activeFilter, setActiveFilter }) {
         <CardOutline width="30px" />
         <div className="text-xl font-semibold">Pedidos</div>
       </div>
-      {/* <div className="outline-border flex items-center justify-center gap-4 rounded-2xl px-2 py-1 outline-1">
-        <div className="justify-start text-base font-medium text-zinc-100">
-          Reembolsados
-        </div>
-        <ChevronDownOutline width="15px" />
-      </div> */}
 
       <select
         value={activeFilter}
