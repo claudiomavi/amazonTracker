@@ -66,7 +66,8 @@ export default function Pedidos({ setOpenAddPedido }) {
     if (paymentType === "amazon4") cuotas = 4;
     else if (paymentType === "klarna3") cuotas = 3;
 
-    const valor = amount && cuotas ? amount / cuotas : 0;
+    const numericAmount = Number(amount);
+    const valor = numericAmount && cuotas ? amount / cuotas : 0;
 
     const valorFixed = Number(valor.toFixed(2));
 
@@ -74,7 +75,7 @@ export default function Pedidos({ setOpenAddPedido }) {
       id: modifiedPedido._id,
       updates: {
         productname: modifiedPedido.productname,
-        amount: modifiedPedido.amount,
+        amount: numericAmount,
         deliveryDate: modifiedPedido.deliveryDate,
         returnDeadline: modifiedPedido.returnDeadline,
         paymentType: modifiedPedido.paymentType,
@@ -209,7 +210,10 @@ export default function Pedidos({ setOpenAddPedido }) {
       {showModify && selectedPedido && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
           <PedidoForm
-            pedido={selectedPedido}
+            pedido={{
+              ...selectedPedido,
+              amount: selectedPedido.amount?.toString() || "",
+            }}
             setPedido={setSelectedPedido}
             action={() => handleModifyPedido(selectedPedido)}
             buttonText="Modificar"

@@ -9,7 +9,7 @@ import PedidoForm from "../components/PedidoFrom";
 export default function AddPedido({ setOpenAddPedido }) {
   const [newPedido, setNewPedido] = useState({
     productname: "",
-    amount: 0,
+    amount: "",
     deliveryDate: "",
     returnDeadline: "",
     paymentType: "",
@@ -36,10 +36,10 @@ export default function AddPedido({ setOpenAddPedido }) {
   const handleAddPedido = async () => {
     if (newPedido) {
       try {
-        await addPedido({ ...newPedido });
+        await addPedido({ ...newPedido, amount: newPedido.amount || 0 });
         setNewPedido({
           productname: "",
-          amount: 0,
+          amount: "",
           deliveryDate: "",
           returnDeadline: "",
           paymentType: "",
