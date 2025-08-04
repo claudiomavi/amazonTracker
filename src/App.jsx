@@ -2,9 +2,11 @@ import { useState } from "react";
 import TabBar from "./components/TabBar";
 import Pedidos from "./pages/Pedidos";
 import AddPedido from "./pages/AddPedido";
+import Stats from "./pages/Stats";
 
 export default function App() {
   const [openAddPedido, setOpenAddPedido] = useState(false);
+  const [showPedidosPage, setShowPedidosPage] = useState(false);
 
   return (
     <div className="bg relative flex h-screen w-screen flex-col">
@@ -12,8 +14,15 @@ export default function App() {
 
       {!openAddPedido && (
         <div>
-          <Pedidos setOpenAddPedido={setOpenAddPedido} />
-          <TabBar />
+          {showPedidosPage ? (
+            <Pedidos setOpenAddPedido={setOpenAddPedido} />
+          ) : (
+            <Stats />
+          )}
+          <TabBar
+            showPedidosPage={showPedidosPage}
+            setShowPedidosPage={setShowPedidosPage}
+          />
         </div>
       )}
     </div>
