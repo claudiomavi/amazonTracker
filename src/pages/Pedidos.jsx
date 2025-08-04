@@ -9,6 +9,7 @@ import {
 import { api } from "../../convex/_generated/api";
 import PedidosHeader from "../components/PedidosHeader";
 import { useState } from "react";
+import { ClimbingBoxLoader, GridLoader } from "react-spinners";
 import RefundModal from "../components/RefundModal";
 import ReturnModal from "../components/ReturnModal";
 import PedidoForm from "../components/PedidoFrom";
@@ -82,7 +83,7 @@ export default function Pedidos({ setOpenAddPedido }) {
       },
     });
     setShowModify(false);
-    setSelectedPedido(null); // opcional
+    setSelectedPedido(null);
   };
 
   return (
@@ -91,6 +92,25 @@ export default function Pedidos({ setOpenAddPedido }) {
         activeFilter={activeFilter}
         setActiveFilter={setActiveFilter}
       />
+
+      {pedidos === undefined && (
+        <div className="text-muted flex h-[50vh] w-full flex-col items-center justify-center">
+          <ClimbingBoxLoader loading color="#fff" className="opacity-40" />
+          <p>Cargando...</p>
+        </div>
+      )}
+      {pedidos !== undefined && filteredPedidos?.length === 0 && (
+        <div className="flex h-[50vh] w-full flex-col items-center justify-center gap-4 p-7">
+          <GridLoader
+            loading
+            color="#fff"
+            className="blur-xs absolute opacity-40"
+          />
+          <p className="text text-center text-sm">
+            No se han encontrado pedidos con el filtro seleccionado
+          </p>
+        </div>
+      )}
 
       <div className="mt-14 flex h-full w-full flex-col gap-7">
         {pedidos &&
