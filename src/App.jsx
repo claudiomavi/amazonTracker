@@ -6,7 +6,7 @@ import Stats from "./pages/Stats";
 
 export default function App() {
   const [openAddPedido, setOpenAddPedido] = useState(false);
-  const [showPedidosPage, setShowPedidosPage] = useState(false);
+  const [showPedidosPage, setShowPedidosPage] = useState(true);
 
   return (
     <div className="bg relative flex h-screen w-screen flex-col">
