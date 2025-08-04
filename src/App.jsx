@@ -7,7 +7,7 @@ export default function App() {
   const [openAddPedido, setOpenAddPedido] = useState(false);
 
   return (
-    <div className="bg relative flex h-[812px] w-[375px] flex-col">
+    <div className="bg relative flex h-screen w-screen flex-col">
       {openAddPedido && <AddPedido setOpenAddPedido={setOpenAddPedido} />}
 
       {!openAddPedido && (
