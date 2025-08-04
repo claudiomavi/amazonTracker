@@ -113,7 +113,7 @@ export default function Pedidos({ setOpenAddPedido }) {
         </div>
       )}
 
-      <div className="mt-14 flex h-full w-full flex-col gap-7">
+      <div className="mt-12 flex h-full w-full flex-col gap-7">
         {pedidos &&
           filteredPedidos.map((pedido) => (
             <div
