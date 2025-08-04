@@ -120,11 +120,11 @@ export default function Pedidos({ setOpenAddPedido }) {
               key={pedido._id}
               className="bg-light outline-border mx-7 flex flex-col gap-2 rounded-2xl p-4 outline-1"
             >
-              <div className="flex w-full justify-between font-bold">
-                <div className="flex items-center justify-center gap-2">
+              <div className="flex w-full justify-between text-lg font-bold">
+                <div className="flex gap-2">
                   <p className="text">{pedido.productname}</p>
                   <CreateOutline
-                    width="18px"
+                    width="20px"
                     className="text-muted fill-muted hover:fill-white hover:text-white"
                     onClick={() => {
                       setShowModify(true);
@@ -134,7 +134,7 @@ export default function Pedidos({ setOpenAddPedido }) {
                 </div>
                 <p className="text-secondary">{pedido.installmentValue}€</p>
               </div>
-              <p className="text-muted text-xs">
+              <p className="text-muted text-sm">
                 Entrega: {pedido.deliveryDate}
               </p>
               <div className="flex items-center justify-between">
@@ -145,7 +145,7 @@ export default function Pedidos({ setOpenAddPedido }) {
                     setReturnDate(pedido.returnDate);
                     setShowReturnModal(true);
                   }}
-                  className={`${getReturnButtonColor(pedido)} text flex items-center justify-center gap-2 rounded-2xl px-2 py-0.5 text-xs`}
+                  className={`${getReturnButtonColor(pedido)} text flex items-center justify-center gap-2 rounded-2xl px-2 py-0.5 text-sm`}
                 >
                   <ReturnDownBack width="12px" />
                   {pedido.returnDeadline}
@@ -157,12 +157,12 @@ export default function Pedidos({ setOpenAddPedido }) {
                     setRefundDate(pedido.returnDate);
                     setShowRefundModal(true);
                   }}
-                  className={`${pedido.refundReceived ? "bg-success" : "bg-danger"} text flex items-center justify-center gap-2 rounded-2xl px-2 py-0.5 text-xs`}
+                  className={`${pedido.refundReceived ? "bg-success" : "bg-danger"} text flex items-center justify-center gap-2 rounded-2xl px-2 py-0.5 text-sm`}
                 >
                   <WalletOutline width="12px" />
                   {pedido.refundReceived ? "Si" : "No"}
                 </button>
-                <button className="bg-secondary text flex items-center justify-center gap-2 rounded-2xl px-2 py-0.5 text-xs">
+                <button className="bg-secondary text flex items-center justify-center gap-2 rounded-2xl px-2 py-0.5 text-sm">
                   <CardOutline width="12px" />
                   {pedido.paymentType.slice(0, 1).toUpperCase() +
                     pedido.paymentType.slice(1)}
