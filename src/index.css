@@ -86,4 +86,7 @@
   .border-muted {
     border-color: var(--muted);
   }
+  .border-border {
+    border-color: var(--border);
+  }
 }
