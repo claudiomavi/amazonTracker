@@ -14,7 +14,7 @@ import ReturnModal from "../components/ReturnModal";
 import PedidoForm from "../components/PedidoFrom";
 
 export default function Pedidos({ setOpenAddPedido }) {
-  const [activeFilter, setActiveFilter] = useState("todos");
+  const [activeFilter, setActiveFilter] = useState("pendientes");
   const [showModify, setShowModify] = useState(false);
   const [showReturnModal, setShowReturnModal] = useState(false);
   const [showRefundModal, setShowRefundModal] = useState(false);
