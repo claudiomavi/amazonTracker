@@ -2,6 +2,7 @@ import { useMutation } from "convex/react";
 import { useEffect } from "react";
 import { Checkmark, TrashOutline } from "react-ionicons";
 import { api } from "../../convex/_generated/api";
+import normalizeAmount from "../../utils/normalizeAmount";
 
 export default function PedidoForm({
   pedido,
@@ -19,8 +20,10 @@ export default function PedidoForm({
     if (paymentType === "amazon4") cuotas = 4;
     else if (paymentType === "klarna3") cuotas = 3;
 
-    const numericAmount = Number(amount);
-    const valor = numericAmount && cuotas ? numericAmount / cuotas : 0;
+    const normalizedAmount = normalizeAmount(amount);
+
+    const valor =
+      !isNaN(normalizedAmount) && cuotas ? normalizedAmount / cuotas : 0;
 
     setPedido((prev) => ({
       ...prev,
@@ -66,7 +69,7 @@ export default function PedidoForm({
             onChange={(e) =>
               setPedido((prev) => ({
                 ...prev,
-                amount: Number(e.target.value),
+                amount: e.target.value,
               }))
             }
             className="bg-light text-muted self-stretch rounded-2xl px-4 py-2"

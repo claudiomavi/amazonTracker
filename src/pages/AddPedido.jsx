@@ -3,8 +3,8 @@ import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useState } from "react";
 import AddPedidoHeader from "../components/AddPedidoHeader";
-import { Checkmark } from "react-ionicons";
 import PedidoForm from "../components/PedidoFrom";
+import normalizeAmount from "../../utils/normalizeAmount";
 
 export default function AddPedido({ setOpenAddPedido }) {
   const [newPedido, setNewPedido] = useState({
@@ -20,12 +20,13 @@ export default function AddPedido({ setOpenAddPedido }) {
 
   useEffect(() => {
     const { amount, paymentType } = newPedido;
+
     let cuotas = 1;
 
     if (paymentType === "amazon4") cuotas = 4;
     else if (paymentType === "klarna3") cuotas = 3;
 
-    const valor = amount && cuotas ? amount / cuotas : 0;
+    const valor = normalizeAmount(amount) / cuotas;
 
     setNewPedido((prev) => ({
       ...prev,
@@ -36,7 +37,9 @@ export default function AddPedido({ setOpenAddPedido }) {
   const handleAddPedido = async () => {
     if (newPedido) {
       try {
-        await addPedido({ ...newPedido, amount: newPedido.amount || 0 });
+        const normalized = normalizeAmount(newPedido.amount);
+
+        await addPedido({ ...newPedido, amount: normalized });
         setNewPedido({
           productname: "",
           amount: "",

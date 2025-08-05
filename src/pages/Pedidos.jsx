@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from "convex/react";
+import normalizeAmount from "../../utils/normalizeAmount";
 import {
   AddCircle,
   CardOutline,
@@ -66,20 +67,18 @@ export default function Pedidos({ setOpenAddPedido }) {
     if (paymentType === "amazon4") cuotas = 4;
     else if (paymentType === "klarna3") cuotas = 3;
 
-    const numericAmount = Number(amount);
-    const valor = numericAmount && cuotas ? amount / cuotas : 0;
-
-    const valorFixed = Number(valor.toFixed(2));
+    const normalized = normalizeAmount(amount);
+    const valor = normalized && cuotas ? normalized / cuotas : 0;
 
     await updatePedido({
       id: modifiedPedido._id,
       updates: {
         productname: modifiedPedido.productname,
-        amount: numericAmount,
+        amount: normalized,
         deliveryDate: modifiedPedido.deliveryDate,
         returnDeadline: modifiedPedido.returnDeadline,
         paymentType: modifiedPedido.paymentType,
-        installmentValue: valorFixed,
+        installmentValue: Number(valor.toFixed(2)),
         notes: modifiedPedido.notes,
       },
     });
