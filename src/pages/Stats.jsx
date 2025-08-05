@@ -25,7 +25,7 @@ export default function Stats() {
     const deadline = new Date(pedido.returnDeadline);
     const isReturned = pedido.returned;
     const isRefunded = pedido.refundReceived;
-    const installment = Number(pedido.installmentValue || 0);
+    const installment = Number(pedido.installmentValue.toFixed(2) || 0);
 
     stats.totalHistorico += installment;
 
@@ -61,7 +61,7 @@ export default function Stats() {
           <p>Cargando...</p>
         </div>
       ) : (
-        <div className="text outline-border mx-3 mt-20 flex flex-col rounded-2xl text-lg font-bold outline-1">
+        <div className="text outline-border mx-7 mt-10 flex flex-col rounded-2xl text-lg font-bold outline-1">
           <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
             <p>Pedidos Activos</p>
             <p className="text-secondary">{stats.pedidosActivos}</p>
