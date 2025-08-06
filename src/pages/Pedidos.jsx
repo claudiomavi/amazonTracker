@@ -50,7 +50,7 @@ export default function Pedidos({ setOpenAddPedido }) {
       case "pendientes":
         return returnDate > in7Days && !pedido.returned;
       case "proximos":
-        return returnDate >= today && returnDate <= in7Days;
+        return returnDate >= today && returnDate <= in7Days && !pedido.returned;
       case "devueltos":
         return pedido.returned && !pedido.refundReceived;
       case "reembolsados":
