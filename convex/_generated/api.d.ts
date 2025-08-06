@@ -13,6 +13,8 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as checkAndNotifyPedidos from "../checkAndNotifyPedidos.js";
+import type * as crons from "../crons.js";
 import type * as pedidos from "../pedidos.js";
 import type * as sendTelegramMessage from "../sendTelegramMessage.js";
 
@@ -25,6 +27,8 @@ import type * as sendTelegramMessage from "../sendTelegramMessage.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  checkAndNotifyPedidos: typeof checkAndNotifyPedidos;
+  crons: typeof crons;
   pedidos: typeof pedidos;
   sendTelegramMessage: typeof sendTelegramMessage;
 }>;
