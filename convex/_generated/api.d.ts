@@ -14,6 +14,7 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as pedidos from "../pedidos.js";
+import type * as sendTelegramMessage from "../sendTelegramMessage.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -25,6 +26,7 @@ import type * as pedidos from "../pedidos.js";
  */
 declare const fullApi: ApiFromModules<{
   pedidos: typeof pedidos;
+  sendTelegramMessage: typeof sendTelegramMessage;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,
