@@ -6,8 +6,8 @@ const crons = cronJobs();
 crons.daily(
   "Comprobar pedidos y enviar notificaciones",
   {
-    hourUTC: 20, // Hora UTC (7 = 09:00 en España durante horario de verano)
-    minuteUTC: 15,
+    hourUTC: 8, // Hora UTC (8 = 10:00 en España durante horario de verano)
+    minuteUTC: 0,
   },
   api.checkAndNotifyPedidos.checkAndNotifyPedidos,
 );
