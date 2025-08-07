@@ -1,14 +1,16 @@
 import { useMutation } from "convex/react";
 import { useEffect } from "react";
-import { Checkmark, TrashOutline } from "react-ionicons";
+import { Checkmark, TrashOutline, Close } from "react-ionicons";
 import { api } from "../../convex/_generated/api";
 import normalizeAmount from "../../utils/normalizeAmount";
 
 export default function PedidoForm({
   pedido,
+  setShowModify,
   setPedido,
   action,
   buttonText,
+  exit,
   eliminate,
 }) {
   const deletePedido = useMutation(api.pedidos.deletePedido);
@@ -45,10 +47,18 @@ export default function PedidoForm({
   };
 
   return (
-    <div className="bg z-20 h-full w-full">
+    <div className="bg z-20 flex h-full w-full flex-col justify-center">
+      {exit && (
+        <Close
+          className="top-15 right-22 absolute"
+          width="40px"
+          color="#fff"
+          onClick={() => setShowModify(false)}
+        />
+      )}
       <form
         action={action}
-        className="mt-12 flex w-full flex-col items-center justify-center gap-4"
+        className="mt-7 flex w-full flex-col items-center justify-center gap-4"
       >
         <div className="bg-dark outline-border flex w-80 flex-col items-center justify-center gap-2 rounded-2xl p-4 outline-1">
           <input

@@ -213,9 +213,11 @@ export default function Pedidos({ setOpenAddPedido }) {
               ...selectedPedido,
               amount: selectedPedido.amount?.toString() || "",
             }}
+            setShowModify={setShowModify}
             setPedido={setSelectedPedido}
             action={() => handleModifyPedido(selectedPedido)}
             buttonText="Modificar"
+            exit
             eliminate
           />
         </div>
