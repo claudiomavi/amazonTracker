@@ -13,7 +13,7 @@ export default function App() {
       {openAddPedido && <AddPedido setOpenAddPedido={setOpenAddPedido} />}
 
       {!openAddPedido && (
-        <div>
+        <div className="flex-1 overflow-y-auto">
           {showPedidosPage ? (
             <Pedidos setOpenAddPedido={setOpenAddPedido} />
           ) : (
