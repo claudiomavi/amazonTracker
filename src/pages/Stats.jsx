@@ -12,9 +12,9 @@ export default function Stats() {
 
   const stats = {
     pedidosActivos: 0,
-    pendienteDevolucion: 0,
+    pendienteReembolso: 0,
     totalActivos: 0,
-    totalPendienteDev: 0,
+    totalPendienteRee: 0,
     devProx7Dias: 0,
     devueltos: 0,
     reembolsados: 0,
@@ -35,8 +35,8 @@ export default function Stats() {
     }
 
     if (isReturned && !isRefunded) {
-      stats.pendienteDevolucion += 1;
-      stats.totalPendienteDev += installment;
+      stats.pendienteReembolso += 1;
+      stats.totalPendienteRee += installment;
     }
 
     if (!isReturned && deadline <= in7Days) {
@@ -67,16 +67,16 @@ export default function Stats() {
             <p className="text-secondary">{stats.pedidosActivos}</p>
           </div>
           <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
-            <p>Pendientes Devolucion</p>
-            <p className="text-primary">{stats.pendienteDevolucion}</p>
+            <p>Pendientes Reembolso</p>
+            <p className="text-primary">{stats.pendienteReembolso}</p>
           </div>
           <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
             <p>Total activos</p>
             <p className="text-secondary">{stats.totalActivos}€</p>
           </div>
           <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
-            <p>Total pend. dev.</p>
-            <p className="text-primary">{stats.totalPendienteDev}€</p>
+            <p>Total pend. ree.</p>
+            <p className="text-primary">{stats.totalPendienteRee}€</p>
           </div>
           <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
             <p>Dev. prox. 7 días</p>
