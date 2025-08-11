@@ -61,38 +61,40 @@ export default function Stats() {
           <p>Cargando...</p>
         </div>
       ) : (
-        <div className="text outline-border mx-7 mt-10 flex flex-col rounded-2xl text-lg font-bold outline-1">
-          <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
-            <p>Pedidos Activos</p>
-            <p className="text-secondary">{stats.pedidosActivos}</p>
-          </div>
-          <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
-            <p>Pendientes Reembolso</p>
-            <p className="text-primary">{stats.pendienteReembolso}</p>
-          </div>
-          <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
-            <p>Total activos</p>
-            <p className="text-secondary">{stats.totalActivos}€</p>
-          </div>
-          <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
-            <p>Total pend. ree.</p>
-            <p className="text-primary">{stats.totalPendienteRee}€</p>
-          </div>
-          <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
-            <p>Dev. prox. 7 días</p>
-            <p className="text-secondary">{stats.devProx7Dias}</p>
-          </div>
-          <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
-            <p>Devueltos</p>
-            <p className="text-primary">{stats.devueltos} </p>
-          </div>
-          <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
-            <p>Reembolsados</p>
-            <p className="text-secondary">{stats.reembolsados}</p>
-          </div>
-          <div className="bg-light flex w-full justify-between p-4">
-            <p>Total historico</p>
-            <p className="text-primary">{stats.totalHistorico}€</p>
+        <div className="h-full">
+          <div className="text outline-border mx-7 mt-10 flex flex-col rounded-2xl text-lg font-bold outline-1">
+            <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
+              <p>Pedidos Activos</p>
+              <p className="text-secondary">{stats.pedidosActivos}</p>
+            </div>
+            <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
+              <p>Pendientes Reembolso</p>
+              <p className="text-primary">{stats.pendienteReembolso}</p>
+            </div>
+            <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
+              <p>Total activos</p>
+              <p className="text-secondary">{stats.totalActivos.toFixed(2)}€</p>
+            </div>
+            <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
+              <p>Total pend. ree.</p>
+              <p className="text-primary">{stats.totalPendienteRee}€</p>
+            </div>
+            <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
+              <p>Dev. prox. 7 días</p>
+              <p className="text-secondary">{stats.devProx7Dias}</p>
+            </div>
+            <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
+              <p>Devueltos</p>
+              <p className="text-primary">{stats.devueltos} </p>
+            </div>
+            <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
+              <p>Reembolsados</p>
+              <p className="text-secondary">{stats.reembolsados}</p>
+            </div>
+            <div className="bg-light flex w-full justify-between p-4">
+              <p>Total historico</p>
+              <p className="text-primary">{stats.totalHistorico.toFixed(2)}€</p>
+            </div>
           </div>
         </div>
       )}
