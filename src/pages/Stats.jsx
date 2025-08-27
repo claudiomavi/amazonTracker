@@ -77,7 +77,9 @@ export default function Stats() {
             </div>
             <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
               <p>Total pend. ree.</p>
-              <p className="text-primary">{stats.totalPendienteRee}€</p>
+              <p className="text-primary">
+                {stats.totalPendienteRee.toFixed(2)}€
+              </p>
             </div>
             <div className="border-b-1 border-border bg-light flex w-full justify-between p-4">
               <p>Dev. prox. 7 días</p>
